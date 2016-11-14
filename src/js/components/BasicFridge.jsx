@@ -1,15 +1,42 @@
 var React = require('react');
+var $ = require('jquery');
 
 var BasicFridge = React.createClass({
-  propTypes: {
+
     
-  },
+  
+  
   getInitialState(){
      return {
         ingredients: [] 
      };
   },
   
+  _apiCall: function() {
+        $.ajax({
+            url:'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?ingredients=' + this.state.ingredients.toString(),
+            type: 'GET', 
+            data: {}, 
+            dataType: 'json',
+            success: function(data) { console.log((data)); },
+            error: function(err) { alert(err); },
+            beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-Mashape-Authorization", "IOXxGwmjbcmshk5Fl9AKuHX5WCLdp1kZ21fjsneOpkbp8wAgkG"); // Enter here your Mashape key
+            }
+        });
+    },
+    
+    componentDidMount: function() {
+        this._apiCall();
+        console.log(this._apiCall());
+    },
+    
+    componentDidUpdate(prevProps, prevState){
+        if(prevProps.ingredients != this.state.ingredients){
+            this._apiCall();
+        }
+    },
+    
    _handleButtonClick (event) {
        event.preventDefault();
        var userIngredientInput = this.refs.userInput.value;
@@ -24,7 +51,7 @@ var BasicFridge = React.createClass({
    deleteIngredient(i, event) {
         console.log(i);
        event.preventDefault();
-       var ingredientIndex = parseInt(event.target.value, 10);
+    //   var ingredientIndex = parseInt(event.target.value, 10);
       
        this.setState(state => {
            state.ingredients.splice(i, 1);
@@ -34,12 +61,17 @@ var BasicFridge = React.createClass({
        });
    },
   
+  searchRecipe(event){
+      event.preventDefault();
+     
+  },
    
   render: function() {
     return (
         <form>
         <input type="text" ref="userInput"></input>
         <button onClick={this._handleButtonClick}>Add Ingredient</button>
+        <button onClick={this.searchRecipe}>Search for Recipes!</button>
             <ul>
                 {this.state.ingredients.map((ingredient, i) => <button onClick={(evt) => this.deleteIngredient(i, evt)} key={i}>{ingredient}</button>)}
             </ul>
