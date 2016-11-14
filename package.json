@@ -4,7 +4,8 @@
   "description": "Our first app for our project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack-config.js",
+    "dev": "webpack --config webpack-config.js --watch"
   },
   "repository": {
     "type": "git",
@@ -24,10 +25,7 @@
     "express": "^4.14.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-router": "^3.0.0",
     "webpack": "^1.13.3"
-  },
-  "scripts": {
-    "build": "webpack --config webpack-config.js",
-    "dev": "webpack --config webpack-config.js --watch"
-  } 
+  }
 }
