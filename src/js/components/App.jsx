@@ -1,5 +1,7 @@
 var React = require('react');
 var Link = require('react-router').Link;
+var BasicFridge = require('./BasicFridge');
+
 
 var App = React.createClass({
     render: function() {
@@ -12,6 +14,10 @@ var App = React.createClass({
                 <main>
                     {this.props.children}
                 </main>
+                <hr/>
+                <BasicFridge/>
+            
+               
             </div>
         );
     }
