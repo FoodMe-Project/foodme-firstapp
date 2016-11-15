@@ -26,15 +26,37 @@ var BasicFridge = React.createClass({
         });
     },
     
+    // _apiCallAutoComplete: function() {
+    //     $.ajax({
+    //         url:'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food/ingredients/autocomplete?query=' + this.refs.userInput.value,
+    //         type: 'GET', 
+    //         data: {}, 
+    //         dataType: 'json',
+    //         success: function(data) { console.log((data)); },
+    //         error: function(err) { alert(err); },
+    //         beforeSend: function(xhr) {
+    //         xhr.setRequestHeader("X-Mashape-Authorization", "IOXxGwmjbcmshk5Fl9AKuHX5WCLdp1kZ21fjsneOpkbp8wAgkG");
+    //             }    
+    //         });
+        
+    // },
+    
+    
     componentDidMount: function() {
         this._apiCall();
         console.log(this._apiCall());
+        // this._apiCallAutoComplete();
+        // console.log( this._apiCallAutoComplete());
+        
     },
     
     componentDidUpdate(prevProps, prevState){
         if(prevProps.ingredients != this.state.ingredients){
             this._apiCall();
         }
+        // if(prevProps.refs.userInput.value != this.state.userInput.value){
+        //     this._apiCallAutoComplete();
+        // }
     },
     
    _handleButtonClick (event) {
@@ -42,7 +64,6 @@ var BasicFridge = React.createClass({
        var userIngredientInput = this.refs.userInput.value;
        var ingredient = this.state.ingredients.concat(userIngredientInput);
        this.setState({
-           
            ingredients: ingredient
        });
      
@@ -69,7 +90,7 @@ var BasicFridge = React.createClass({
   render: function() {
     return (
         <form>
-        <input type="text" ref="userInput"></input>
+        <input onChange={this._apiCallAutoComplete} type="text" ref="userInput"></input>
         <button onClick={this._handleButtonClick}>Add Ingredient</button>
         <button onClick={this.searchRecipe}>Search for Recipes!</button>
             <ul>

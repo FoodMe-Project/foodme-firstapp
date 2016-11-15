@@ -26507,22 +26507,42 @@
 	        });
 	    },
 	
+	    // _apiCallAutoComplete: function() {
+	    //     $.ajax({
+	    //         url:'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food/ingredients/autocomplete?query=' + this.refs.userInput.value,
+	    //         type: 'GET', 
+	    //         data: {}, 
+	    //         dataType: 'json',
+	    //         success: function(data) { console.log((data)); },
+	    //         error: function(err) { alert(err); },
+	    //         beforeSend: function(xhr) {
+	    //         xhr.setRequestHeader("X-Mashape-Authorization", "IOXxGwmjbcmshk5Fl9AKuHX5WCLdp1kZ21fjsneOpkbp8wAgkG");
+	    //             }    
+	    //         });
+	
+	    // },
+	
+	
 	    componentDidMount: function componentDidMount() {
 	        this._apiCall();
 	        console.log(this._apiCall());
+	        // this._apiCallAutoComplete();
+	        // console.log( this._apiCallAutoComplete());
 	    },
 	
 	    componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
 	        if (prevProps.ingredients != this.state.ingredients) {
 	            this._apiCall();
 	        }
+	        // if(prevProps.refs.userInput.value != this.state.userInput.value){
+	        //     this._apiCallAutoComplete();
+	        // }
 	    },
 	    _handleButtonClick: function _handleButtonClick(event) {
 	        event.preventDefault();
 	        var userIngredientInput = this.refs.userInput.value;
 	        var ingredient = this.state.ingredients.concat(userIngredientInput);
 	        this.setState({
-	
 	            ingredients: ingredient
 	        });
 	    },
@@ -26551,7 +26571,7 @@
 	        return React.createElement(
 	            'form',
 	            null,
-	            React.createElement('input', { type: 'text', ref: 'userInput' }),
+	            React.createElement('input', { onChange: this._apiCallAutoComplete, type: 'text', ref: 'userInput' }),
 	            React.createElement(
 	                'button',
 	                { onClick: this._handleButtonClick },
